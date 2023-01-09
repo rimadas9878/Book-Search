@@ -19,19 +19,31 @@ type Book {
     title: String
 }
 
-// Setting an Auth tupe to handle returning data from user creating or use login
 type  Auth {
     token: ID!
     user: User
 }
 
+
+input BookInput{
+    bookId: String!
+    authors: [String]
+    description: String! 
+    image: String
+    link: String
+    title: String
+}
 type Query {
     users: [User]!
-    user(userIs: ID!): User
+    user(userId: ID!): User
 }
 
 type Mutation {
     login(email: String!, password: String!): Auth
-    addUser(username: String!, email: String!, password: String!)
+    addUser(username: String!, email: String!, password: String!): Auth
+    saveBook(bookInput : BookInput!) : User
+    removeBook(bookId: String!) : User
 }
 `
+
+// Setting an Auth tupe to handle returning data from user creating or use login

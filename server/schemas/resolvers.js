@@ -8,23 +8,23 @@ const resolvers = {
             return User.find()
         },
 
-        user: async (parent, {userId}) => {
-            return User.findOne ({_id: userId})
+        user: async (parent, { userId }) => {
+            return User.findOne({ _id: userId })
         },
     },
 
     Mutation: {
-        addUser: async (parent, {username, email, password}) => {
-            const user = await User.create({username, email, password});
+        addUser: async (parent, { username, email, password }) => {
+            const user = await User.create({ username, email, password });
             const token = signToken(user);
 
-            return { token, user};
+            return { token, user };
         },
 
-        login: async (parent, {email, password}) => {
-            const user = await User.findOne ({email});
+        login: async (parent, { email, password }) => {
+            const user = await User.findOne({ email });
 
-            if(!user) {
+            if (!user) {
                 throw new AuthenticationError('No user with this email found!');
             }
 
@@ -32,11 +32,34 @@ const resolvers = {
 
             if (!correctPw) {
                 throw new AuthenticationError('Incorrect password!');
-              }
+            }
 
-              const token = signToken(user);
-              return { token, user };
+            const token = signToken(user);
+            return { token, user };
         },
 
+        saveBook: async (parent, { bookInput }, context) => {
+            if (context.user) {
+                return User.findOneAndUpdate(
+                    { _id: context.user._id },
+                    { $push: { savedBooks: { bookInput} } },
+                    { new: true }
+                );
+            }
+            throw new AuthenticationError('You need to be logged in!');
+        },
+
+        removeBook: async (parent, { bookId }, context) => {
+            if (context.user) {
+                return User.findOneAndUpdate(
+                    { _id: context.user._id },
+                    { $pull: { savedBooks: { bookId } } },
+                    { new: true }
+                );
+            }
+            throw new AuthenticationError('You need to be logged in!');
+        },
     }
 }
+
+module.exports = resolvers;
