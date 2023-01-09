@@ -45,5 +45,6 @@ type Mutation {
     removeBook(bookId: String!) : User
 }
 `
+module.exports = typeDefs;
 
 // Setting an Auth tupe to handle returning data from user creating or use login
