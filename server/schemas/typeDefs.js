@@ -19,5 +19,19 @@ type Book {
     link: String
     title: String
 }
-type 
+
+// Setting an Auth tupe to handle returning data from user creating or use login
+type  Auth {
+    token: ID!
+    user: User
+}
+
+type Query {
+    users: [User]!
+    user(userIs: ID!): User
+}
+
+type Mutation {
+    
+}
 `
