@@ -13,7 +13,7 @@ type User {
 type Book {
     bookId: String!
     authors: [String]
-    description: String! 
+    description: String
     image: String
     link: String
     title: String
@@ -28,14 +28,12 @@ type  Auth {
 input BookInput{
     bookId: String!
     authors: [String]
-    description: String! 
+    description: String 
     image: String
-    link: String
     title: String
 }
 type Query {
-    users: [User]!
-    user(userId: ID!): User
+    me: User
 }
 
 type Mutation {
