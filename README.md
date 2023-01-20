@@ -38,3 +38,8 @@ https://still-meadow-03263.herokuapp.com/
 ## GitHub Link
 
 https://github.com/rimadas9878/Book-Search
+
+## Book Search
+
+![Books page shows the books](./Assets/BookSearch.gif)
+
